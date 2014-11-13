@@ -1,0 +1,12 @@
+%{"cowboy": {:hex, :cowboy, "1.0.0"},
+  "cowlib": {:hex, :cowlib, "1.0.0"},
+  "exgravatar": {:hex, :exgravatar, "0.2.0"},
+  "hackney": {:hex, :hackney, "0.14.3"},
+  "httpoison": {:hex, :httpoison, "0.5.0"},
+  "idna": {:hex, :idna, "1.0.1"},
+  "linguist": {:hex, :linguist, "0.1.2"},
+  "oauth2": {:git, "git://github.com/scrogson/oauth2.git", "433fc789adb85fa60cb4002361f93010155a114f", []},
+  "phoenix": {:git, "git://github.com/phoenixframework/phoenix.git", "bf7011b9f87afff0e0012d5f7a3adf0463040765", []},
+  "plug": {:hex, :plug, "0.8.2"},
+  "poison": {:hex, :poison, "1.2.0"},
+  "ranch": {:hex, :ranch, "1.0.0"}}
