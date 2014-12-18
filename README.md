@@ -11,7 +11,7 @@ To start the application:
 1. Register a new application on [GitHub](https://github.com/settings/applications/new)
 2. Set `CLIENT_ID` and `CLIENT_SECRET` environment variables
 3. Install dependencies with `mix deps.get`
-4. Start Phoenix router with `mix phoenix.start OAuth2Example.Router`
+4. Start Phoenix router with `mix phoenix.start`
 
 Now you can visit `lvh.me:4000` from your browser and click "Sign in with
 GitHub".
