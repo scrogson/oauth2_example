@@ -11,7 +11,7 @@ use Mix.Config
 # Where those two env variables point to a file on
 # disk for the key and cert.
 
-config :phoenix, OAuth2Example.Router,
+config :o_auth2_example, OAuth2Example.Endpoint,
   url: [host: "example.com"],
   http: [port: System.get_env("PORT")],
   secret_key_base: "1r3bLthfeEv3UBkhdSdgff6dvQUgd6v42eeQVlxsgjG9dUfcLIcPoxtiJDcZrFeLliKA0UJs0w4kJ8ovm6ynfQ=="

@@ -16,4 +16,9 @@ defmodule OAuth2Example do
     opts = [strategy: :one_for_one, name: OAuth2Example.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  def config_change(changed, _new, removed) do
+    OAuth2Example.Endpoint.config_change(changed, removed)
+    :ok
+  end
 end

@@ -6,7 +6,6 @@ defmodule OAuth2Example.View do
   using do
     quote do
       # Import common functionality
-      import OAuth2Example.I18n
       import OAuth2Example.Router.Helpers
       # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)
       use Phoenix.HTML

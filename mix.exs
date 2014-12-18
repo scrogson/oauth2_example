@@ -2,7 +2,7 @@ defmodule OAuth2Example.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :oauth2_example,
+    [app: :o_auth2_example,
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: ["lib", "web"],
@@ -16,9 +16,9 @@ defmodule OAuth2Example.Mixfile do
   end
 
   defp deps do
-    [{:phoenix, github: "phoenixframework/phoenix"},
+    [{:phoenix, "~> 0.7.2"},
      {:cowboy, "~> 1.0"},
-     {:oauth2, github: "scrogson/oauth2"},
+     {:oauth2, "~> 0.0.1"},
      {:httpoison, "0.5.0"}]
   end
 end
