@@ -11,7 +11,6 @@ defmodule OAuth2Example.View do
       use Phoenix.HTML
 
       # Common aliases
-      alias Phoenix.Controller.Flash
       alias OAuth2Example.User
     end
   end
