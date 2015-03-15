@@ -36,7 +36,7 @@
         <h2>Welcome, <%= @current_user["name"] %>!</h2>
         <img src="<%= @current_user["avatar_url"] %>" class="img-circle"/>
       <% else %>
-        <a class="btn btn-primary btn-lg" href="<%= auth_path :index %>">
+        <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index %>">
           <i class="fa fa-github"></i>
           Sign in with GitHub
         </a>
