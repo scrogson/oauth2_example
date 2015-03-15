@@ -7,8 +7,7 @@ defmodule OAuth2Example do
     import Supervisor.Spec, warn: false
 
     children = [
-      # Define workers and child supervisors to be supervised
-      # worker(OAuth2Example.Worker, [arg1, arg2, arg3])
+      worker(OAuth2Example.Endpoint, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
