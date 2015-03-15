@@ -1,5 +1,5 @@
 defmodule OAuth2Example.ErrorView do
-  use OAuth2Example.View
+  use OAuth2Example.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found - 404"

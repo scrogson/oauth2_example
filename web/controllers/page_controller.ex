@@ -1,5 +1,5 @@
 defmodule OAuth2Example.PageController do
-  use Phoenix.Controller
+  use OAuth2Example.Web, :controller
 
   plug :action
 

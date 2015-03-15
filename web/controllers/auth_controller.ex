@@ -1,5 +1,5 @@
 defmodule OAuth2Example.AuthController do
-  use Phoenix.Controller
+  use OAuth2Example.Web, :controller
 
   alias OAuth2.AccessToken
   alias OAuth2.Strategy.AuthCode
