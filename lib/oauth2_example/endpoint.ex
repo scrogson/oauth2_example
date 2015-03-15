@@ -2,7 +2,8 @@ defmodule OAuth2Example.Endpoint do
   use Phoenix.Endpoint, otp_app: :o_auth2_example
 
   plug Plug.Static,
-    at: "/", from: :o_auth2_example
+    at: "/", from: :o_auth2_example,
+    only: ~w(css js images)
 
   plug Plug.Logger
 
