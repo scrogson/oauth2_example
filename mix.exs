@@ -19,6 +19,6 @@ defmodule OAuth2Example.Mixfile do
     [{:phoenix, "~> 0.9.0"},
      {:cowboy, "~> 1.0"},
      {:oauth2, "~> 0.0.3"},
-     {:plug, "~> 0.10", override: true}]
+     {:plug, "~> 0.10.0", override: true}]
   end
 end
