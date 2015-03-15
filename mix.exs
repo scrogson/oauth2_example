@@ -12,13 +12,12 @@ defmodule OAuth2Example.Mixfile do
 
   def application do
     [mod: {OAuth2Example, []},
-     applications: [:phoenix, :cowboy, :logger, :httpoison]]
+     applications: [:phoenix, :cowboy, :logger, :oauth2]]
   end
 
   defp deps do
-    [{:phoenix, "~> 0.9.0"},
+    [{:phoenix, "~> 0.10.0"},
      {:cowboy, "~> 1.0"},
-     {:oauth2, "~> 0.0.3"},
-     {:plug, "~> 0.10.0", override: true}]
+     {:oauth2, "~> 0.0.4"}]
   end
 end
