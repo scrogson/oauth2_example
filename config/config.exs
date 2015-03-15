@@ -10,6 +10,7 @@ config :o_auth2_example, OAuth2Example.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "1r3bLthfeEv3UBkhdSdgff6dvQUgd6v42eeQVlxsgjG9dUfcLIcPoxtiJDcZrFeLliKA0UJs0w4kJ8ovm6ynfQ==",
   debug_errors: false,
+  pubsub: [name: OAuth2Example.PubSub, adapter: Phoenix.PubSub.PG2],
   oauth2: {OAuth2.Strategy.AuthCode, [
     client_id: System.get_env("CLIENT_ID"),
     client_secret: System.get_env("CLIENT_SECRET"),

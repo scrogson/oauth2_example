@@ -9,7 +9,7 @@
 
     <title>OAuth2/Phoenix!</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/phoenix.css">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
@@ -46,5 +46,7 @@
     <div class="container-fluid">
       <%= @inner %>
     </div>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"</script>
+    <script>require("/web/static/app")</script>
   </body>
 </html>
