@@ -16,9 +16,9 @@ defmodule OAuth2Example.Mixfile do
   end
 
   defp deps do
-    [{:phoenix, "~> 0.8.0"},
+    [{:phoenix, "~> 0.9.0"},
      {:cowboy, "~> 1.0"},
      {:oauth2, "~> 0.0.3"},
-     {:httpoison, "0.5.0"}]
+     {:plug, "~> 0.10", override: true}]
   end
 end
