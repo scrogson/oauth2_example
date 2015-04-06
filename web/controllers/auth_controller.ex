@@ -4,7 +4,6 @@ defmodule OAuth2Example.AuthController do
   alias OAuth2.AccessToken
   alias OAuth2.Strategy.AuthCode
 
-  @params %{redirect_uri: "http://lvh.me:4000/auth/callback"}
   @token_params Map.merge(%{headers: [{"Accept", "application/json"}]}, @params)
 
   plug :action
@@ -45,4 +44,8 @@ defmodule OAuth2Example.AuthController do
   end
 
   defp strategy(conn), do: conn.private.oauth2_strategy
+
+  defp params(conn) do
+    %{redirect_uri: strategy(conn).redirect_uri}
+  end
 end
