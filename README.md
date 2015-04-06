@@ -4,7 +4,7 @@
 > [OAuth2](https://github.com/scrogson/oauth2) library and
 > the [Phoenix](https://github.com/phoenixframework/phoenix) framework.
 
-![Alt text](https://monosnap.com/image/l8D8RiL2wWwNyXeWiCcjmGIhNMXg7N.png)
+![Alt text](https://monosnap.com/file/PahR5zCiU9EapeRyuvAKn1AyTitp1p.png)
 
 To start the application:
 
