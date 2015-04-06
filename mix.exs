@@ -18,6 +18,6 @@ defmodule OAuth2Example.Mixfile do
   defp deps do
     [{:phoenix, "~> 0.10.0"},
      {:cowboy, "~> 1.0"},
-     {:oauth2, "~> 0.0.4"}]
+     {:oauth2, "~> 0.0.5"}]
   end
 end
