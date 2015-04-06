@@ -16,9 +16,9 @@ config :oauth2,
   strategy: OAuth2.Strategy.AuthCode,
   client_id: System.get_env("CLIENT_ID"),
   client_secret: System.get_env("CLIENT_SECRET"),
-  site: System.get_env("SITE"),
-  authorize_url: System.get_env("AUTHORIZE_URL"),
-  token_url: System.get_env("TOKEN_URL"),
+  site: System.get_env("SITE") || "https://api.github.com",
+  authorize_url: System.get_env("AUTHORIZE_URL") || "https://github.com/login/oauth/authorize",
+  token_url: System.get_env("TOKEN_URL") || "https://github.com/login/oauth/access_token",
   redirect_uri: "http://lvh.me:4000/auth/callback"
 
 # Configures Elixir's Logger
