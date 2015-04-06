@@ -4,8 +4,6 @@ defmodule OAuth2Example.AuthController do
   alias OAuth2.AccessToken
   alias OAuth2.Strategy.AuthCode
 
-  @token_params Map.merge(%{headers: [{"Accept", "application/json"}]}, @params)
-
   plug :action
 
   @doc """
@@ -48,4 +46,9 @@ defmodule OAuth2Example.AuthController do
   defp params(conn) do
     %{redirect_uri: strategy(conn).redirect_uri}
   end
+
+  defp token_params(params) do
+    Map.merge(%{headers: [{"Accept", "application/json"}]}, params)
+  end
+
 end
