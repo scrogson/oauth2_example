@@ -12,7 +12,7 @@ defmodule OAuth2Example.AuthController do
   been stored in `conn.private.oauth2_strategy` in the router's pipeline.
   """
   def index(conn, _params) do
-    redirect conn, external: AuthCode.authorize_url(strategy(conn), @params)
+    redirect conn, external: AuthCode.authorize_url(strategy(conn), params(conn))
   end
 
   @doc """
@@ -23,7 +23,7 @@ defmodule OAuth2Example.AuthController do
   """
   def callback(conn, %{"code" => code}) do
     # Exchange an auth code for an access token
-    token = AuthCode.get_token!(strategy(conn), code, @token_params)
+    token = AuthCode.get_token!(strategy(conn), code, token_params(params(conn)))
 
     # Request the user's data with the access token
     user = AccessToken.get!(token, "/user")
