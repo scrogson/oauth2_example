@@ -32,7 +32,8 @@ defmodule OAuth2Example.Router do
   # Fetch the configured strategy from the router's config and store the
   # initialized strategy into `conn.private.oauth2_strategy`.
   defp put_oauth_strategy(conn, _) do
-    {strategy, opts} = OAuth2Example.Endpoint.config(:oauth2)
+    config = Application.get_all_env(:oauth2)
+    {strategy, opts} = Keyword.pop(config, :strategy)
     put_private(conn, :oauth2_strategy, apply(strategy, :new, [opts]))
   end
 end
