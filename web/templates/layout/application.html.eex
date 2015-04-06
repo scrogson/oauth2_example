@@ -16,8 +16,16 @@
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">OAuth2/Phoenix</a>
+          <a class="navbar-brand" href="/">OAuth2 Example</a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="https://github.com/scrogson/oauth2_example">
+              <i class="fa fa-github"></i>
+              View on GitHub
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="jumbotron">
@@ -31,6 +39,9 @@
 
       <br>
       <br>
+
+      <iframe src="https://ghbtns.com/github-btn.html?user=scrogson&repo=oauth2_example&type=star&count=true&size=large&v=2" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+      <iframe src="https://ghbtns.com/github-btn.html?user=scrogson&repo=oauth2_example&type=watch&count=true&size=large&v=2" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
 
       <%= if @current_user do %>
         <h2>Welcome, <%= @current_user["name"] %>!</h2>
