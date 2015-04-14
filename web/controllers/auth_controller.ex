@@ -1,18 +1,14 @@
 defmodule OAuth2Example.AuthController do
   use OAuth2Example.Web, :controller
 
-  alias OAuth2.AccessToken
-  alias OAuth2.Strategy.AuthCode
-
   plug :action
 
   @doc """
   This action is reached via `/auth` and redirects to the OAuth2 provider
-  based on the chosen strategy. The strategy in this example has already
-  been stored in `conn.private.oauth2_strategy` in the router's pipeline.
+  based on the chosen strategy.
   """
   def index(conn, _params) do
-    redirect conn, external: AuthCode.authorize_url(strategy(conn), params(conn))
+    redirect conn, external: GitHub.authorize_url!
   end
 
   @doc """
@@ -23,10 +19,10 @@ defmodule OAuth2Example.AuthController do
   """
   def callback(conn, %{"code" => code}) do
     # Exchange an auth code for an access token
-    token = AuthCode.get_token!(strategy(conn), code, token_params(params(conn)))
+    token = GitHub.get_token!(code: code)
 
     # Request the user's data with the access token
-    user = AccessToken.get!(token, "/user")
+    user = OAuth2.AccessToken.get!(token, "/user")
 
     # Store the user in the session under `:current_user` and redirect to /.
     # In most cases, we'd probably just store the user's ID that can be used
@@ -37,18 +33,8 @@ defmodule OAuth2Example.AuthController do
     # the access token as well.
     conn
     |> put_session(:current_user, user)
-    |> put_session(:access_token, token)
+    |> put_session(:access_token, token.access_token)
     |> redirect(to: "/")
   end
-
-  defp strategy(conn), do: conn.private.oauth2_strategy
-
-  defp params(conn) do
-    %{redirect_uri: strategy(conn).redirect_uri}
-  end
-
-  defp token_params(params) do
-    Map.merge(%{headers: [{"Accept", "application/json"}]}, params)
-  end
-
 end
+
