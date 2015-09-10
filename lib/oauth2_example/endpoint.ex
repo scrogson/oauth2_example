@@ -1,13 +1,26 @@
 defmodule OAuth2Example.Endpoint do
-  use Phoenix.Endpoint, otp_app: :o_auth2_example
+  use Phoenix.Endpoint, otp_app: :oauth2_example
 
+  socket "/socket", OAuth2Example.UserSocket
+
+  # Serve at "/" the static files from "priv/static" directory.
+  #
+  # You should set gzip to true if you are running phoenix.digest
+  # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :o_auth2_example,
-    only: ~w(css js images)
+    at: "/", from: :oauth2_example, gzip: false,
+    only: ~w(css fonts images js favicon.ico robots.txt)
 
+  # Code reloading can be explicitly enabled under the
+  # :code_reloader configuration of your endpoint.
+  if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    plug Phoenix.LiveReloader
+    plug Phoenix.CodeReloader
+  end
+
+  plug Plug.RequestId
   plug Plug.Logger
-
-  plug Phoenix.CodeReloader
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
@@ -20,8 +33,8 @@ defmodule OAuth2Example.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_oauth2_example_key",
-    signing_salt: "rqz0upBw",
-    encryption_salt: "NJw6uNqn"
+    signing_salt: "TN3lMCf5"
 
-  plug :router, OAuth2Example.Router
+  plug OAuth2Example.Router
 end
+
