@@ -1,22 +1,22 @@
-defmodule GitHub do
+defmodule Google do
   @moduledoc """
-  An OAuth2 strategy for GitHub.
+  An OAuth2 strategy for Google.
   """
   use OAuth2.Strategy
 
   alias OAuth2.Strategy.AuthCode
 
   defp config do
-    [strategy: GitHub,
-     site: "https://api.github.com",
-     authorize_url: "https://github.com/login/oauth/authorize",
-     token_url: "https://github.com/login/oauth/access_token"]
+    [strategy: Google,
+     site: "https://accounts.google.com",
+     authorize_url: "/o/oauth2/auth",
+     token_url: "/o/oauth2/token"]
   end
 
   # Public API
 
   def client do
-    Application.get_env(:oauth2_example, GitHub)
+    Application.get_env(:oauth2_example, Google)
     |> Keyword.merge(config())
     |> OAuth2.Client.new()
   end

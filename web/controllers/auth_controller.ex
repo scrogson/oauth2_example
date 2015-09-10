@@ -17,10 +17,10 @@ defmodule OAuth2Example.AuthController do
   """
   def callback(conn, %{"provider" => provider, "code" => code}) do
     # Exchange an auth code for an access token
-    token = get_token!(provider, code)
+    IO.inspect token = get_token!(provider, code)
 
     # Request the user's data with the access token
-    user = get_user!(provider, token)
+    IO.inspect user = get_user!(provider, token)
 
     # Store the user in the session under `:current_user` and redirect to /.
     # In most cases, we'd probably just store the user's ID that can be used
@@ -36,14 +36,14 @@ defmodule OAuth2Example.AuthController do
   end
 
   defp authorize_url!("github"), do: GitHub.authorize_url!
-  #defp authorize_url!("google"), do: Google.authorize_url!
+  defp authorize_url!("google"), do: Google.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   defp authorize_url!(_), do: raise "No matching provider available"
 
   defp get_token!("github", code), do: GitHub.get_token!(code: code)
-  #defp get_token!("google", code), do: Google.get_token!(code: code)
+  defp get_token!("google", code), do: Google.get_token!(code: code)
   defp get_token!(_, _), do: raise "No matching provider available"
 
   defp get_user!("github", token), do: OAuth2.AccessToken.get!(token, "/user")
-  #defp get_user!("google", token), do: OAuth2.AccessToken.get!(token, "/user")
+  defp get_user!("google", token), do: OAuth2.AccessToken.get!(token, "https://www.googleapis.com/plus/v1/people/me/openIdConnect")
 end
 
