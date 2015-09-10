@@ -8,8 +8,8 @@ defmodule GitHub do
 
   # Public API
 
-  def new do
-    OAuth2.new([
+  def client do
+    OAuth2.Client.new([
       strategy: __MODULE__,
       client_id: System.get_env("CLIENT_ID"),
       client_secret: System.get_env("CLIENT_SECRET"),
@@ -21,11 +21,11 @@ defmodule GitHub do
   end
 
   def authorize_url!(params \\ []) do
-    OAuth2.Client.authorize_url!(new(), params)
+    OAuth2.Client.authorize_url!(client(), params)
   end
 
   def get_token!(params \\ [], headers \\ []) do
-    OAuth2.Client.get_token!(new(), params)
+    OAuth2.Client.get_token!(client(), params)
   end
 
   # Strategy Callbacks

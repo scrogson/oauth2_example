@@ -5,18 +5,30 @@
 # is restricted to this project.
 use Mix.Config
 
-# Configures the router
-config :o_auth2_example, OAuth2Example.Endpoint,
+# Configures the namespace used by Phoenix generators
+config :oauth2_example,
+  app_namespace: OAuth2Example
+
+# Configures the endpoint
+config :oauth2_example, OAuth2Example.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "1r3bLthfeEv3UBkhdSdgff6dvQUgd6v42eeQVlxsgjG9dUfcLIcPoxtiJDcZrFeLliKA0UJs0w4kJ8ovm6ynfQ==",
-  debug_errors: false,
-  pubsub: [name: OAuth2Example.PubSub, adapter: Phoenix.PubSub.PG2]
+  root: Path.dirname(__DIR__),
+  secret_key_base: "zWoDIUN+sA1X958CxqY38CE42MrplMBZtnCOs+d1DoE05sJ++vfrrAU8OKm3JPL+",
+  render_errors: [accepts: ~w(html json)],
+  pubsub: [name: OAuth2Example.PubSub,
+           adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configure phoenix generators
+config :phoenix, :generators,
+  migration: true,
+  binary_id: false
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+

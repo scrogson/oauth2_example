@@ -50,7 +50,7 @@
         <br>
         <br>
 
-        <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index %>">
+        <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "github" %>">
           <i class="fa fa-github"></i>
           Sign in with GitHub
         </a>
