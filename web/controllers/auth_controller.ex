@@ -17,10 +17,10 @@ defmodule OAuth2Example.AuthController do
   """
   def callback(conn, %{"provider" => provider, "code" => code}) do
     # Exchange an auth code for an access token
-    IO.inspect token = get_token!(provider, code)
+    token = get_token!(provider, code)
 
     # Request the user's data with the access token
-    IO.inspect user = get_user!(provider, token)
+    user = get_user!(provider, token).body
 
     # Store the user in the session under `:current_user` and redirect to /.
     # In most cases, we'd probably just store the user's ID that can be used
