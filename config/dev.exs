@@ -40,3 +40,14 @@ config :oauth2_example, OAuth2Example.Repo,
   database: "oauth2_example_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :oauth2_example, GitHub,
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
+  redirect_uri: System.get_env("GITHUB_REDIRECT_URI")
+
+config :oauth2_example, Google,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET"),
+  redirect_uri: System.get_env("GOOGLE_REDIRECT_URI")
+

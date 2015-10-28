@@ -45,10 +45,15 @@
 
       <%= if @current_user do %>
         <h2>Welcome, <%= @current_user["name"] %>!</h2>
-        <img src="<%= @current_user["avatar_url"] %>" class="img-circle"/>
+        <img src="<%= @current_user["avatar_url"] || @current_user["picture"] %>" class="img-circle"/>
       <% else %>
         <br>
         <br>
+
+        <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "google" %>">
+          <i class="fa fa-google"></i>
+          Sign in with Google
+        </a>
 
         <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "github" %>">
           <i class="fa fa-github"></i>
