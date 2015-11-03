@@ -21,6 +21,7 @@ defmodule OAuth2Example.Router do
 
     get "/:provider", AuthController, :index
     get "/:provider/callback", AuthController, :callback
+    delete "/logout", AuthController, :delete
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This

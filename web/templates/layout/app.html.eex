@@ -44,8 +44,9 @@
       <iframe src="https://ghbtns.com/github-btn.html?user=scrogson&repo=oauth2_example&type=watch&count=true&size=large&v=2" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
 
       <%= if @current_user do %>
-        <h2>Welcome, <%= @current_user["name"] %>!</h2>
-        <img src="<%= @current_user["avatar_url"] || @current_user["picture"] %>" class="img-circle"/>
+        <h2>Welcome, <%= @current_user.name %>!</h2>
+        <img src="<%= @current_user.avatar %>" class="img-circle"/>
+        <%= link "Logout", to: auth_path(@conn, :delete), method: :delete, class: "btn btn-danger" %>
       <% else %>
         <br>
         <br>
@@ -58,6 +59,11 @@
         <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "github" %>">
           <i class="fa fa-github"></i>
           Sign in with GitHub
+        </a>
+
+        <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "facebook" %>">
+          <i class="fa fa-facebook"></i>
+          Sign in with Facebook
         </a>
       <% end %>
     </div>
