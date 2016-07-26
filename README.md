@@ -10,8 +10,8 @@ To start the application:
 
 1. Register a new application on [GitHub](https://github.com/settings/applications/new)
     - Enter http://lvh.me:4000/auth/github/callback for the Authorization callback URL
-2. Set the `REDIRECT_URI` environment variable to the callback URL
-3. Set the `CLIENT_ID` and `CLIENT_SECRET` environment variables
+2. Set the `GITHUB_REDIRECT_URI` environment variable to the callback URL
+3. Set the `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables
 4. Install Elixir dependencies with `mix deps.get`
 5. Install NodeJS dependencies with `npm install`
 6. Setup the database with `mix ecto.setup`
