@@ -25,8 +25,10 @@ defmodule GitHub do
     OAuth2.Client.authorize_url!(client(), params)
   end
 
-  def get_token!(params \\ [], headers \\ []) do
-    OAuth2.Client.get_token!(client(), params)
+  def get_token!(params \\ [], headers \\ [], opts \\ []) do
+    params = params |> Keyword.merge([client_secret: client.client_secret])
+
+    OAuth2.Client.get_token!(client(), params, headers, opts)
   end
 
   # Strategy Callbacks
