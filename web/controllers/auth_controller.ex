@@ -38,7 +38,7 @@ defmodule OAuth2Example.AuthController do
     # the access token as well.
     conn
     |> put_session(:current_user, user)
-    |> put_session(:access_token, token.access_token)
+    |> put_session(:access_token, token.token)
     |> redirect(to: "/")
   end
 
@@ -53,7 +53,7 @@ defmodule OAuth2Example.AuthController do
   defp get_token!(_, _), do: raise "No matching provider available"
 
   defp get_user!("github", token) do
-    {:ok, %{body: user}} = OAuth2.AccessToken.get(token, "/user")
+    {:ok, %{body: user}} = OAuth2.Client.get(token, "/user")
     %{name: user["name"], avatar: user["avatar_url"]}
   end
   defp get_user!("google", token) do
