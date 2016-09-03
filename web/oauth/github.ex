@@ -26,7 +26,7 @@ defmodule GitHub do
   end
 
   def get_token!(params \\ [], headers \\ []) do
-    OAuth2.Client.get_token!(client(), params)
+    OAuth2.Client.get_token!(client(), Keyword.merge(params, client_secret: client().client_secret))
   end
 
   # Strategy Callbacks

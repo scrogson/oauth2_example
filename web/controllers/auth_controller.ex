@@ -24,10 +24,10 @@ defmodule OAuth2Example.AuthController do
   """
   def callback(conn, %{"provider" => provider, "code" => code}) do
     # Exchange an auth code for an access token
-    token = get_token!(provider, code)
+    client = get_token!(provider, code)
 
     # Request the user's data with the access token
-    user = get_user!(provider, token)
+    user = get_user!(provider, client)
 
     # Store the user in the session under `:current_user` and redirect to /.
     # In most cases, we'd probably just store the user's ID that can be used
@@ -38,7 +38,7 @@ defmodule OAuth2Example.AuthController do
     # the access token as well.
     conn
     |> put_session(:current_user, user)
-    |> put_session(:access_token, token.access_token)
+    |> put_session(:access_token, client.token.access_token)
     |> redirect(to: "/")
   end
 
@@ -52,8 +52,8 @@ defmodule OAuth2Example.AuthController do
   defp get_token!("facebook", code), do: Facebook.get_token!(code: code)
   defp get_token!(_, _), do: raise "No matching provider available"
 
-  defp get_user!("github", token) do
-    {:ok, %{body: user}} = OAuth2.AccessToken.get(token, "/user")
+  defp get_user!("github", client) do
+    %{body: user} = OAuth2.Client.get!(client, "/user")
     %{name: user["name"], avatar: user["avatar_url"]}
   end
   defp get_user!("google", token) do
