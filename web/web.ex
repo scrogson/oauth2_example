@@ -18,7 +18,11 @@ defmodule OAuth2Example.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
     end
   end
 
@@ -27,10 +31,11 @@ defmodule OAuth2Example.Web do
       use Phoenix.Controller, namespace: OAuth2Example
 
       alias OAuth2Example.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto
+      import Ecto.Query
 
       import OAuth2Example.Router.Helpers
+      import OAuth2Example.Gettext
     end
   end
 
@@ -45,6 +50,8 @@ defmodule OAuth2Example.Web do
       use Phoenix.HTML
 
       import OAuth2Example.Router.Helpers
+      import OAuth2Example.ErrorHelpers
+      import OAuth2Example.Gettext
     end
   end
 

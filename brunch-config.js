@@ -5,14 +5,13 @@ exports.config = {
       joinTo: "js/app.js"
 
       // To use a separate vendor.js bundle, specify two files path
-      // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
+      // http://brunch.io/docs/config#-files-
       // joinTo: {
       //  "js/app.js": /^(web\/static\/js)/,
       //  "js/vendor.js": /^(web\/static\/vendor)|(deps)/
       // }
       //
       // To change the order of concatenation of files, explicitly mention here
-      // https://github.com/brunch/brunch/tree/master/docs#concatenation
       // order: {
       //   before: [
       //     "web/static/vendor/js/jquery-2.1.1.js",
@@ -21,7 +20,10 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: "css/app.css",
+      order: {
+        after: ["web/static/css/app.css"] // concat app.css last
+      }
     },
     templates: {
       joinTo: "js/app.js"
@@ -39,8 +41,6 @@ exports.config = {
   paths: {
     // Dependencies and current project directories to watch
     watched: [
-      "deps/phoenix/web/static",
-      "deps/phoenix_html/web/static",
       "web/static",
       "test/static"
     ],
