@@ -14,6 +14,9 @@ config :oauth2_example, OAuth2Example.Endpoint,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../", __DIR__)]]
 
+#
+config :oauth2, debug: true
+
 # Watch static and templates for browser reloading.
 config :oauth2_example, OAuth2Example.Endpoint,
   live_reload: [
@@ -33,14 +36,6 @@ config :logger, :console, format: "[$level] $message\n"
 # and calculating stacktraces is usually expensive.
 config :phoenix, :stacktrace_depth, 20
 
-# Configure your database
-config :oauth2_example, OAuth2Example.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "oauth2_example_dev",
-  hostname: "localhost",
-  pool_size: 10
 
 config :oauth2_example, GitHub,
   client_id: System.get_env("GITHUB_CLIENT_ID"),
@@ -56,3 +51,8 @@ config :oauth2_example, Facebook,
   client_id: System.get_env("FACEBOOK_CLIENT_ID"),
   client_secret: System.get_env("FACEBOOK_CLIENT_SECRET"),
   redirect_uri: System.get_env("FACEBOOK_REDIRECT_URI")
+
+config :oauth2_example, PingFed,
+  client_id: System.get_env("PINGFED_CLIENT_ID"),
+  client_secret: System.get_env("PINGFED_CLIENT_SECRET"),
+  redirect_uri: System.get_env("PINGFED_REDIRECT_URI")

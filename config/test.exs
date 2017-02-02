@@ -12,12 +12,4 @@ config :logger, level: :warn
 # Set a higher stacktrace during test
 config :phoenix, :stacktrace_depth, 20
 
-# Configure your database
-config :oauth2_example, OAuth2Example.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "oauth2_example_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
 
