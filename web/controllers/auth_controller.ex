@@ -26,20 +26,41 @@ defmodule OAuth2Example.AuthController do
     # Exchange an auth code for an access token
     client = get_token!(provider, code)
 
-    # Request the user's data with the access token
-    user = get_user!(provider, client)
+    response = get_user(provider, client)
+    case response do
+      {:error, error } ->
+        conn
+          |> put_flash(:error, error)
+          |> redirect(to: "/")
+      # Store the user in the session under `:current_user` and redirect to /.
+      # In most cases, we'd probably just store the user's ID that can be used
+      # to fetch from the database. In this case, since this example app has no
+      # database, I'm just storing the user map.
+      #
+      # If you need to make additional resource requests, you may want to store
+      # the access token as well.
+      {:user, user} ->
+        conn
+          |> put_session(:current_user, user)
+          |> put_session(:access_token, client.token.access_token)
+          |> redirect(to: "/")
+    end
+  end
 
-    # Store the user in the session under `:current_user` and redirect to /.
-    # In most cases, we'd probably just store the user's ID that can be used
-    # to fetch from the database. In this case, since this example app has no
-    # database, I'm just storing the user map.
-    #
-    # If you need to make additional resource requests, you may want to store
-    # the access token as well.
-    conn
-    |> put_session(:current_user, user)
-    |> put_session(:access_token, client.token.access_token)
-    |> redirect(to: "/")
+  defp get_user(provider, client) do
+    case client.token.other_params do
+      %{"error" => error, "error_description" => description } ->
+        {:error, error <> " " <> description }
+      _ ->
+        # Request the user's data with the access token
+        user = user_request!(provider, client)
+        case user do
+          {:error, message } ->
+            {:error, message }
+          {:user, user } ->
+            {:user, user}
+        end
+    end
   end
 
   defp authorize_url!("github"),   do: GitHub.authorize_url!
@@ -52,16 +73,30 @@ defmodule OAuth2Example.AuthController do
   defp get_token!("facebook", code), do: Facebook.get_token!(code: code)
   defp get_token!(_, _), do: raise "No matching provider available"
 
-  defp get_user!("github", client) do
-    %{body: user} = OAuth2.Client.get!(client, "/user")
-    %{name: user["name"], avatar: user["avatar_url"]}
+  defp user_request!("github", client) do
+    response = OAuth2.Client.get!(client, "/user")
+    case response do
+      %{body: user} ->
+        {:user, %{name: user["name"], avatar: user["avatar_url"]}}
+      _ -> {:error, response }
+    end
   end
-  defp get_user!("google", client) do
-    {:ok, %{body: user}} = OAuth2.Client.get!(client, "https://www.googleapis.com/plus/v1/people/me/openIdConnect")
-    %{name: user["name"], avatar: user["picture"]}
+  defp user_request!("google", client) do
+    response = OAuth2.Client.get!(client, "https://www.googleapis.com/plus/v1/people/me/openIdConnect")
+    case response do
+     %{body: %{"error" => error}} ->
+        messages = Enum.map(error["errors"], fn(err) -> err["message"] end)
+        {:error, Enum.join(messages, ",\n") }
+     %{body: user} ->
+        {:user, %{name: user["name"], avatar: user["picture"]}}
+    end
   end
-  defp get_user!("facebook", client) do
-    {:ok, %{body: user}} = OAuth2.Client.get!(client, "/me", fields: "id,name")
-    %{name: user["name"], avatar: "https://graph.facebook.com/#{user["id"]}/picture"}
+  defp user_request!("facebook", client) do
+    response = OAuth2.Client.get!(client, "/me", fields: "id,name")
+    case response do
+      %{body: user} ->
+        {:user, %{name: user["name"], avatar: "https://graph.facebook.com/#{user["id"]}/picture"}}
+      _ -> {:error, response }
+    end
   end
 end

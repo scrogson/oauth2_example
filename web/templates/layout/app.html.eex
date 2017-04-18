@@ -28,6 +28,10 @@
         </ul>
       </div>
     </div>
+    <% error = get_flash(@conn, :error) %>
+    <%= if error do %>
+      <p class="alert alert-danger" role="alert"><%= error %></p>
+    <%= end %>
     <div class="jumbotron">
       <span class="logo"></span>
       <h2>OAuth2/Phoenix Example Application!</h2>
