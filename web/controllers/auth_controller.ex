@@ -61,7 +61,7 @@ defmodule OAuth2Example.AuthController do
     %{name: user["name"], avatar: user["picture"]}
   end
   defp get_user!("facebook", client) do
-    {:ok, %{body: user}} = OAuth2.Client.get!(client, "/me", fields: "id,name")
+    %{body: user} = OAuth2.Client.get!(client, "/me", fields: "id,name")
     %{name: user["name"], avatar: "https://graph.facebook.com/#{user["id"]}/picture"}
   end
 end
