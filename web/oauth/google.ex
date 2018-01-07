@@ -26,7 +26,8 @@ defmodule Google do
   end
 
   def get_token!(params \\ [], headers \\ []) do
-    OAuth2.Client.get_token!(client(), params)
+    params = ["client_secret": client.client_secret] ++ params
+    foo = OAuth2.Client.get_token!(client(), params)
   end
 
   # Strategy Callbacks

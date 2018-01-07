@@ -57,8 +57,9 @@ defmodule OAuth2Example.AuthController do
     %{name: user["name"], avatar: user["avatar_url"]}
   end
   defp get_user!("google", client) do
-    {:ok, %{body: user}} = OAuth2.Client.get!(client, "https://www.googleapis.com/plus/v1/people/me/openIdConnect")
-    %{name: user["name"], avatar: user["picture"]}
+    %{body: user} = OAuth2.Client.get!(client, "https://www.googleapis.com/plus/v1/people/me/")
+    %{name: user["displayName"],
+      avatar: Enum.at(String.split(user["image"]["url"], "?"), 0)}
   end
   defp get_user!("facebook", client) do
     {:ok, %{body: user}} = OAuth2.Client.get!(client, "/me", fields: "id,name")
