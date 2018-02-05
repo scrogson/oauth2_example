@@ -35,8 +35,10 @@ defmodule Google do
     AuthCode.authorize_url(client, params)
   end
 
+
   def get_token(client, params, headers) do
     client
+    |> put_param(:client_secret, client.client_secret)
     |> put_header("Accept", "application/json")
     |> AuthCode.get_token(params, headers)
   end
