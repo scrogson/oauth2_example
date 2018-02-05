@@ -1,5 +1,6 @@
 defmodule OAuth2Example.AuthController do
   use OAuth2Example.Web, :controller
+  require Logger
 
   @doc """
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
@@ -25,7 +26,8 @@ defmodule OAuth2Example.AuthController do
   def callback(conn, %{"provider" => provider, "code" => code}) do
     # Exchange an auth code for an access token
     client = get_token!(provider, code)
-
+    #
+    Logger.debug "Client ...  #{inspect client} ... provider  #{inspect provider} ... code  #{inspect code}"
     # Request the user's data with the access token
     user = get_user!(provider, client)
 
@@ -41,16 +43,26 @@ defmodule OAuth2Example.AuthController do
     |> put_session(:access_token, client.token.access_token)
     |> redirect(to: "/")
   end
+  
+  @doc """
+  This action is reached via `/auth/:provider/callback` - for catching up server errors 
+  """
+  def callback(conn, %{"provider" => provider, "error" => error_code, "error_description" => error_description }) do
+    conn
+    |> text "Error when receiving callback from: " <> provider <> "! Error code: "  <> error_code <> " => " <> error_description
+  end
 
   defp authorize_url!("github"),   do: GitHub.authorize_url!
   defp authorize_url!("google"),   do: Google.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   defp authorize_url!("facebook"), do: Facebook.authorize_url!(scope: "user_photos")
-  defp authorize_url!(_), do: raise "No matching provider available"
+  defp authorize_url!("pingfed"),  do: PingFed.authorize_url!(scope: "openid profile email" )
+  defp authorize_url!(_),          do: raise "No matching provider available"
 
   defp get_token!("github", code),   do: GitHub.get_token!(code: code)
   defp get_token!("google", code),   do: Google.get_token!(code: code)
   defp get_token!("facebook", code), do: Facebook.get_token!(code: code)
-  defp get_token!(_, _), do: raise "No matching provider available"
+  defp get_token!("pingfed", code),  do: PingFed.get_token!(code: code)
+  defp get_token!(_, _),             do: raise "No matching provider available"
 
   defp get_user!("github", client) do
     %{body: user} = OAuth2.Client.get!(client, "/user")
@@ -64,4 +76,10 @@ defmodule OAuth2Example.AuthController do
     {:ok, %{body: user}} = OAuth2.Client.get!(client, "/me", fields: "id,name")
     %{name: user["name"], avatar: "https://graph.facebook.com/#{user["id"]}/picture"}
   end
+  defp get_user!("pingfed", client) do
+    %{body: user} = OAuth2.Client.get!(client, System.get_env("PINGFED_SITE")<>"/idp/userinfo.openid")
+    Logger.debug "PingFed user ...  #{inspect user}"
+    %{name: user["name"], avatar: user["avatar_url"]}
+  end
+
 end
